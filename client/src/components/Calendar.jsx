@@ -81,17 +81,33 @@ const Date = styled.div`
       return `var(--color-main-${props.grape})`;
     }
   }};
-  display: inline-flexbox;
+  display: inline-flex;
+  justify-content: space-between;
   width: calc(100% / 7);
-  color: ${(props) => props.isThisMonth && "var(--color-black-25)"};
-  justify-content: center;
-  align-items: center;
   margin: 0.1rem;
+  padding: 0.3rem;
+  color: ${(props) => props.isThisMonth && "var(--color-black-25)"};
   cursor: ${(props) => !props.isFuture && "pointer"};
 
+  // TODO: 코멘트 반응형
+
+  .preview-comment {
+    padding: 3px 5px;
+    margin: 2px;
+    background-color: rgba(0, 0, 0, 0.05);
+    color: var(--color-black-50);
+    font-size: 0.8rem;
+    border-radius: 8px;
+
+    @media screen and (max-width: 768px){
+      display: none;
+    }
+  }
+
   .today {
-    width: 2rem;
-    height: 2rem;
+    width: 1.2rem;
+    height: 1.2rem;
+    margin-right: 2px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -101,7 +117,8 @@ const Date = styled.div`
   }
 
   .date-text {
-    font-size: 1.2rem;
+    font-size: 0.8rem;
+    margin-right: 2px;
   }
 
   .future {
@@ -157,6 +174,8 @@ function Calendar() {
     }
   };
 
+  // TODO: 한달치 코멘트 유무 불러오기 API 요청
+
   const generate = (date) => {
     const startWeek = date.clone().startOf("month").week();
     const endWeek =
@@ -196,7 +215,11 @@ function Calendar() {
                   grape={grape[targetDate - 1]}
                   onClick={() => handleDayClick(current, isFuture)}
                 >
-                  <div className={isToday}>
+                  <div>
+                    <span className="preview-comment">코멘트</span>
+                    <span className="preview-time"></span>
+                  </div>
+                  <div className={`date-area ${isToday}`}>
                     <span className={`date-text ${isFuture}`}>
                       {targetDate}
                     </span>
