@@ -90,6 +90,7 @@ const UserNameAndLogout = styled.div`
       margin-left: 5px;
       font-weight: 700;
       font-size: 14px;
+      cursor: pointer;
     }
     > .user_edit {
       font-size: 12px;
@@ -478,7 +479,7 @@ function SideLog() {
           </UserImg>
           <UserNameAndLogout>
             <div>
-              <span className="nickname" title={username}>
+              <span className="nickname" title={username} onClick={() => navigate("/mypage")}>
                 {username.length > 7
                   ? username.slice(0, 7) + "..."
                   : username || "김코딩"}{" "}
